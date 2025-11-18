@@ -174,7 +174,7 @@ class FJSPEnv:
         self.batch_graph.x_dict['operation'][self.virtual_operation_mask, 0] = 1
 
         self.batch_graph.x_dict['operation'][:, 1] = torch.bincount(
-            self.batch_graph.edge_index_dict[('operation', 'o_m', 'machine')][0], minlength=self.num_of_all_operations)  # fixme
+            self.batch_graph.edge_index_dict[('operation', 'o_m', 'machine')][0], minlength=self.num_of_all_operations)
 
         self.batch_graph.x_dict['operation'][:, 2] = torch_scatter.scatter(
             self.batch_graph.edge_attr_dict[('operation', 'o_m', 'machine')][:, 1],

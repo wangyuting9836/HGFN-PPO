@@ -210,7 +210,6 @@ def train_ppo(train_args):
                     torch.save(agent.policy.state_dict(), save_file)
 
 
-# todo 小数
 def validate_ppo_model(validation_env, agent, validation_batch_size, train_args):
     """
     Validate the policy during training, and the process is similar to test
