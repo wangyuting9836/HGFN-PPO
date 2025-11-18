@@ -55,10 +55,6 @@ try:
     # model.setObjectiveN(gp.quicksum(a[i][i, j] for i in job_set[1:] for j in operation_set[i]), 2, priority=0, abstol=0, reltol=0,
     #                     name="AA")
 
-    # Add constraints
-    # model.addConstr(w[(0, 1)][0, 1, 1, 1] == 1)
-    # model.addConstr(w[(1, 0)][1, 1, 0, 1] == 1)
-
     # 1
     model.addConstrs(gp.quicksum(x[(i, j)][i, j, k] for k in Delta[i, j]) == 1
                      for i in job_set[1:]

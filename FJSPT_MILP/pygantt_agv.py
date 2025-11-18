@@ -8,35 +8,6 @@ import numpy as np
 from typing import List, Tuple, Dict
 
 
-def table_find_col(table: object, value: str) -> List[str]:
-    value_col_list = []
-    for col in table.columns:
-        if value in table[col].values.astype(str):
-            value_col_list.append(col)
-    return value_col_list
-
-
-def table_find_row(table: object, col_list: List[str], value: str) -> List[Tuple[str]]:
-    col_row_list = []
-    for col in col_list:
-        row_list = table.query(f'{col} =="{value}"').index
-        for row in row_list:
-            col_row_list.append((col, row))
-    return col_row_list
-
-
-def table_find_pos(table: object, value_list: List[str]) -> Dict[List[str], List[Tuple[str]]]:
-    position_list = []
-    for value in value_list:
-        # col_list 一个值可能被很多列包含
-        col_list = table_find_col(table, value)
-        # row_list 在每一个包含value的列中搜索对应的row
-        col_row_list = table_find_row(table, col_list, value)
-        position_list.append(col_row_list)
-    position_dict = dict(zip(value_list, position_list))
-    return position_dict
-
-
 def set_gantt_color(data, palette=None, **kwargs):
     # data.insert(0, "color", None)
     color_category = data[data.color_category > 0].drop_duplicates(subset=['color_category'])[
@@ -70,12 +41,9 @@ def gantt(data_job, data_agv, max_finish=None, show_title=False, show_y_label=Tr
 
     # gantt_labels = {"AGV1": "AGV1", "AGV2": "AGV2", "Job1": "Job1", "Job2": "Job2", "Job3": "Job3", "Job4": "Job4", "Job5": "Job5"}
 
-    # 1. 从 data_job.label 里取所有唯一的 “JobX”
     job_labels = sorted(data_job['label'].unique())
-    # 2. 从 data_agv.agv 里取所有唯一的 AGV id（假设值为 1, 2, …），并加上前缀
     agv_ids = sorted(data_agv['agv'].unique())
     agv_labels = [f"AGV{int(i)}" for i in agv_ids]
-    # 3. 合并成一个总列表，并生成映射字典
     all_labels = agv_labels + job_labels
     gantt_labels = {lbl: lbl for lbl in all_labels}
 
@@ -123,7 +91,6 @@ def gantt(data_job, data_agv, max_finish=None, show_title=False, show_y_label=Tr
                     ax.plot(x, y, linestyle='--', color='black', linewidth=1, marker='o', markersize=1.5, label=gantt_labels["AGV2"])
                     gantt_labels["AGV2"] = "_nolegend_"
 
-
     plt.tick_params(axis='both', which='major', labelsize=time_font_size)
 
     # Set xticks
@@ -153,5 +120,3 @@ def gantt(data_job, data_agv, max_finish=None, show_title=False, show_y_label=Tr
         ax.set_title('Factory' + str(data_job.factory.iloc[0]), {'fontsize': 10})
     if show_legend is True:
         ax.legend(loc="upper left", fontsize=time_font_size)
-
-
