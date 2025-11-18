@@ -373,7 +373,7 @@ class PPOAgent:
             memory_true_returns[t] = memory_true_rewards[t] * ~memory_terminals[t] + self.gamma * memory_true_returns[t + 1] * ~memory_dones[t]
         total_true_returns_all_batch = torch.sum(memory_true_returns).item()
 
-        # Trick: advantage normalization todo batch or mini batch
+        # Trick: advantage normalization
         if self.is_advantage_norm:
             memory_advantages = (memory_advantages - memory_advantages.mean()) / (memory_advantages.std() + 1e-8)
 
