@@ -43,14 +43,12 @@ def read_fjsp_data(process_file, transport_file):
     Delta = {}  # Set of eligible machines for O_{ij}.
 
     for i in np.arange(1, num_jobs + 1):
-        p[i] = {}
         operation_set[i] = np.arange(1, num_operations_of_job[i - 1] + 1)
         for j in operation_set[i]:
-            p[i][j] = {}
             Delta[i, j] = []
             process_info = jobs_info[i - 1][j - 1]
             for k, process_time in process_info:
-                p[i][j][k] = process_time
+                p[i, j, k] = process_time
                 Delta[i, j].append(k)
 
     matrix_data = []
