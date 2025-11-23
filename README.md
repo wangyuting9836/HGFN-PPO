@@ -53,7 +53,3 @@ The visualization results obtained using Visdom are shown in the figure below：
 
 ## Supplementary MILP Model
 To accurately characterize the FJSPT, we additionally formulate a MILP model, and its implementation is provided in the `FJSPT_MILP/` directory.
-
-## Reference
-https://github.com/songwenas12/fjsp-drl  
-Paper: Flexible Job-Shop Scheduling via Graph Neural Network and Deep Reinforcement Learning, Wen song, Xinyang Chen, Qiqiang Li , and Zhiguang Cao doi: 10.1109/TII.2022.3189725.
