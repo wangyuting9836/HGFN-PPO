@@ -100,7 +100,7 @@ def train_ppo(train_args):
             while not done.all():
                 with torch.no_grad():
                     action, log_action_prob, value, available_batch_mask, select_action_index_mask, available_action_mask = \
-                        agent.get_action_and_value(state, action_type=train_args.action_type, memory=memory)
+                        agent.get_action_and_value(state, action_type=train_args.action_type)
                     next_state, reward, done, terminal = env.step(action, reward_type=train_args.reward_type, action_type=train_args.action_type)
 
                     if train_args.reward_norm == 'reward_norm_running':
@@ -228,10 +228,9 @@ def validate_ppo_model(validation_env, agent, validation_batch_size, train_args)
         state.batch_graph = observe_norm_running(state.batch_graph, update=False)
 
     done = torch.zeros(validation_batch_size, dtype=torch.bool)
-
     while not done.all():
         with torch.no_grad():
-            actions, _, _, _, _, _ = agent.get_action_and_value(state, action_type=train_args.action_type, memory=None)
+            actions, _, _, _, _, _ = agent.get_action_and_value(state, action_type=train_args.action_type)
             next_state, _, done, _ = validation_env.step(actions, reward_type=train_args.reward_type, action_type=train_args.action_type)
 
             if train_args.observer_norm == 'observer_norm_graph':
@@ -249,8 +248,8 @@ def validate_ppo_model(validation_env, agent, validation_batch_size, train_args)
 
 
 if __name__ == '__main__':
-    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    device = torch.device("cpu")
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cpu")
     if device.type == 'cuda':
         torch.cuda.set_device(device)
         torch.set_default_device(device)

@@ -18,6 +18,7 @@ def orthogonal_init(layer, gain=1.0):
     nn.init.orthogonal_(layer.weight, gain=gain)
     nn.init.constant_(layer.bias, 0)
 
+
 class MLPActor(nn.Module):
     def __init__(self, num_layers, input_dim, hidden_dim, output_dim, is_orthogonal_init=False):
         super(MLPActor, self).__init__()
@@ -191,7 +192,7 @@ class FJSPPolicy(nn.Module):
         self.actor = MLPActor(self.actor_hidden_layers, self.actor_in_dim, self.actor_hidden_dim, self.actor_out_dim).to(self.device)
         self.critic = MLPCritic(self.critic_hidden_layers, self.critic_in_dim, self.critic_hidden_dim, self.critic_out_dim).to(self.device)
 
-    def get_action_and_value(self, state, memory, is_greedy, training, action_type='available_vehicle_tuple'):
+    def get_action_and_value(self, state, is_greedy, training, action_type='available_vehicle_tuple'):
         available_action_mask = None
         available_operation_actions = None
         available_machine_actions = None
@@ -343,9 +344,9 @@ class PPOAgent:
 
         self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=self.learning_rate)
 
-    def get_action_and_value(self, state: FJSPState, action_type, memory: Memory = None):
+    def get_action_and_value(self, state: FJSPState, action_type):
         # return self.old_policy.take_action(state, memory, self.is_greedy, self.training)
-        return self.policy.get_action_and_value(state, memory, self.is_greedy, self.training, action_type)
+        return self.policy.get_action_and_value(state, self.is_greedy, self.training, action_type)
 
     def update(self, memory, epoch):
         memory_rewards = torch.stack(memory.reward, dim=0)
@@ -366,7 +367,7 @@ class PPOAgent:
         memory_returns = memory_advantages + memory_values
         total_returns_all_batch = torch.sum(memory_returns).item()
 
-        # 计算每个action的真实奖励
+        # Calculate the true return
         memory_true_returns = torch.zeros_like(memory_true_rewards)
         memory_true_returns[step - 1] = memory_true_rewards[step - 1] * ~memory_terminals[step - 1]
         for t in reversed(range(step - 1)):
@@ -476,8 +477,7 @@ class PPOAgent:
             old_approx_kl_item / mini_batch_count, \
             approx_kl_item / mini_batch_count, \
             total_returns_all_batch / torch.count_nonzero(~memory_terminals).item(), \
-            total_true_returns_all_batch / torch.count_nonzero(~memory_terminals).item() \
-
+            total_true_returns_all_batch / torch.count_nonzero(~memory_terminals).item()
 
     def train(self):
         self.training = True

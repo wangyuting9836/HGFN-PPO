@@ -37,8 +37,8 @@ class FJSPInstance:
     num_operations_of_job: list[int]
     process_info_of_job: list[list[OperationInfo]]
     process_info_of_machine: list[MachineInfo]
-    transportation_time_matrix: np.array  # ����ʱ�����
-    num_o_m_v: int  # O-M����
+    transportation_time_matrix: np.array
+    num_o_m_v: int
 
     def __init__(self, *args, **kwargs):
         self.num_jobs = 0
@@ -52,7 +52,7 @@ class FJSPInstance:
         if len(args) == 4:
             self.generate_from_random_data(args[0], args[1], args[2], args[3])
         elif len(args) == 1:
-            self.num_vehicles = 10
+            self.num_vehicles = 2
             self.read_from_file(args[0])
 
         self.num_operations = sum(self.num_operations_of_job)

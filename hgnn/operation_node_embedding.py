@@ -30,7 +30,7 @@ class GraphLSTM(nn.Module):
         padded_sequences = pad_sequence(sequences, batch_first=True)
         packed_sequences = pack_padded_sequence(
             padded_sequences,
-            length_of_jobs,
+            length_of_jobs.cpu(),
             batch_first=True,
             enforce_sorted=False
         )
