@@ -13,18 +13,21 @@ A research implementation solving Flexible Job Shop Scheduling Problem with tran
 fjsp_gnn_drl_pyg/
 ├── agent/
 │   └── ppo_agent.py                # PPO Agent implementation
-├── config/                         # Configuration files
-│   └── parse_args.py 
-├── FJSP-benchmarks/                # FJSP benchmark instances
-├── FJSP-layouts/                   # Workshop layout files
+├── config/                         
+│   └── parse_args.py               # Configuration file
+├── FJSP_benchmarks/                # FJSP benchmark instances
+├── FJSP_layouts/                   # Workshop layout files
+├── FJSP_MILP/                      
+│   ├── FJSP_AGV_model.py           # Gurobi code for MILP 
+│   └── pygantt_agv.py              # Draw a Gantt chart 
 ├── fjsp_env/
-│   ├── fjsp_env.py                 # Main FJSPT environment logic 
+│   └── fjsp_env.py                 # Main FJSPT environment logic 
 ├── fjsp_lib/
 │   ├── fjsp_graph_data.py          # Graph data structures generation
 │   ├── fjsp_instance.py            # Problem instance definition
 │   ├── fjsp_partial_solution.py    # Partial solution (recording scheduled information)
 │   ├── generate_instance.py        # Instances generation
-│   └── read_fjsp.py                # Benchmark instance reader (parsing FJSP benchmark files)
+│   ├── read_fjsp.py                # Benchmark instance reader (parsing FJSP benchmark files)
 │   └── write_fjsp.py               # Problem instance writer (saving FJSP instances to files)
 ├── hgnn/
 │   ├── hetero_gatv2_conv.py        # Heterogeneous Graph Attention layers
@@ -42,6 +45,8 @@ fjsp_gnn_drl_pyg/
 - **Visdom**: 0.2.4  
 - **NumPy**: 1.26.4  
 - **Pandas**: 2.3.1 
+- **Gurobi**: 10.10.1
+- **Matplotlib**: 3.6.1
 
 ## Network Architecture
 The network architecture is shown in the figure below：
