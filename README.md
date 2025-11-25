@@ -52,9 +52,9 @@ fjsp_gnn_drl_pyg/
 The network architecture is shown in the figure below：
 ![Network Architecture](images/network.png)
 
-## Visdom
-The visualization results obtained using Visdom are shown in the figure below：
-![Visdom Visualization](images/training_process_metrics.svg )
+## Training Visualization
+This project provides real-time visualization of training metrics using Visdom, allowing users to monitor indicators such as return, loss, and makespan. The curves shown below are plotted from the exported .json log data using Matplotlib, presenting a clear view of the training process.：
+![Training Visualization](images/training_process_metrics.svg )
 
 ## Supplementary MILP Model
 To accurately characterize the FJSPT, we additionally formulate a MILP model, and its implementation is provided in the `FJSPT_MILP/` directory.
