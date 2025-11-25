@@ -4,7 +4,7 @@ import json
 with open('training process.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
-fig, axes = plt.subplots(3, 1, figsize=(12, 15))
+fig, axes = plt.subplots(3, 1, figsize=(8, 10))
 fig.suptitle('Training Process Metrics', fontsize=16, fontweight='bold')
 
 axes = axes.flatten()
@@ -37,6 +37,6 @@ for i, index in enumerate(indexes):
 plt.tight_layout()
 plt.subplots_adjust(top=0.95)
 
-plt.show()
-# plt.savefig('training_process_metrics.svg')
+# plt.show()
+plt.savefig('training_process_metrics.svg')
 
