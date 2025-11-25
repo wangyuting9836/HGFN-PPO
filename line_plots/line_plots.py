@@ -27,7 +27,7 @@ for i, index in enumerate(indexes):
     axes[i].grid(True, alpha=0.3)
 
     if window_key == "window1":  # true return
-        axes[i].set_title('return')
+        axes[i].set_title('return', fontsize=14, fontweight='bold')
         axes[i].set_ylabel('return')
     elif window_key == "window6":  # explained variance
         axes[i].set_ylabel('explained variance')
@@ -37,6 +37,6 @@ for i, index in enumerate(indexes):
 plt.tight_layout()
 plt.subplots_adjust(top=0.95)
 
-# plt.show()
-plt.savefig('training_process_metrics.svg')
+plt.show()
+# plt.savefig('training_process_metrics.svg')
 
