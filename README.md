@@ -54,7 +54,7 @@ The network architecture is shown in the figure below：
 
 ## Visdom
 The visualization results obtained using Visdom are shown in the figure below：
-![Visdom Visualization](images/visdom_result.png)
+![Visdom Visualization](images/training_process_metrics.svg)
 
 ## Supplementary MILP Model
 To accurately characterize the FJSPT, we additionally formulate a MILP model, and its implementation is provided in the `FJSPT_MILP/` directory.
