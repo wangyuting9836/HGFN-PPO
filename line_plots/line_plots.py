@@ -5,7 +5,7 @@ with open('training process.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 fig, axes = plt.subplots(3, 1, figsize=(8, 10))
-fig.suptitle('Training Process Metrics', fontsize=16, fontweight='bold')
+# fig.suptitle('Training Process Metrics', fontsize=16, fontweight='bold')
 
 axes = axes.flatten()
 
